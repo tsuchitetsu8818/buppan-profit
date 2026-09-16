@@ -1,155 +1,554 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111827">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#111827"
+>
+
 <title>物販利益計算</title>
 
+
 <style>
+
+/* =========================
+   基本設定
+========================= */
+
 * {
   box-sizing: border-box;
 }
 
 body {
+
   margin: 0;
+
   background: #f3f4f6;
+
   color: #111827;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
 }
+
+
+/* =========================
+   メイン
+========================= */
 
 .container {
+
   max-width: 600px;
+
   margin: 0 auto;
+
   padding: 18px;
+
 }
+
 
 h1 {
+
   text-align: center;
+
   margin: 8px 0 20px;
+
   font-size: 26px;
+
 }
+
 
 .card {
+
   background: white;
+
   border-radius: 16px;
+
   padding: 18px;
+
   margin-bottom: 16px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+  box-shadow:
+    0 3px 12px rgba(0,0,0,0.08);
+
 }
+
 
 h2 {
+
   font-size: 18px;
+
   margin: 0 0 15px;
+
 }
+
 
 label {
+
   display: block;
+
   font-weight: 600;
+
   margin: 12px 0 6px;
+
 }
+
 
 input {
+
   width: 100%;
+
   padding: 13px;
+
   font-size: 17px;
-  border: 1px solid #d1d5db;
+
+  border:
+    1px solid #d1d5db;
+
   border-radius: 10px;
+
   outline: none;
+
 }
+
 
 input:focus {
+
   border-color: #111827;
+
 }
+
+
+/* =========================
+   結果
+========================= */
 
 .result {
+
   display: flex;
+
   justify-content: space-between;
+
+  align-items: center;
+
   padding: 11px 0;
-  border-bottom: 1px solid #e5e7eb;
+
+  border-bottom:
+    1px solid #e5e7eb;
+
 }
+
 
 .result:last-child {
+
   border-bottom: none;
+
 }
+
 
 .value {
+
   font-weight: 700;
+
 }
+
 
 .profit {
+
   font-size: 25px;
+
   font-weight: 800;
+
 }
+
 
 .positive {
+
   color: #059669;
+
 }
+
 
 .negative {
+
   color: #dc2626;
+
 }
+
+
+/* =========================
+   目標利益率
+========================= */
 
 .target {
+
   padding: 13px;
+
   margin: 9px 0;
+
   background: #f9fafb;
+
   border-radius: 10px;
+
 }
+
 
 .target-title {
+
   font-weight: 700;
+
   margin-bottom: 6px;
+
 }
+
 
 .small {
+
   font-size: 13px;
+
   color: #6b7280;
+
 }
+
 
 .custom {
+
   margin-top: 15px;
+
   padding-top: 15px;
-  border-top: 1px solid #e5e7eb;
+
+  border-top:
+    1px solid #e5e7eb;
+
 }
+
+
+/* =========================
+   税込・税抜
+========================= */
 
 .tax-box {
+
   background: #f9fafb;
+
   padding: 13px;
+
   border-radius: 10px;
+
   margin-top: 10px;
+
 }
+
+
+/* =========================
+   エラー
+========================= */
 
 .error {
+
   color: #dc2626;
+
   font-size: 13px;
+
   margin-top: 7px;
+
   min-height: 18px;
+
 }
 
+
+/* =========================
+   フッター
+========================= */
+
 footer {
+
   text-align: center;
+
   color: #6b7280;
+
   font-size: 12px;
+
   padding: 10px;
+
 }
+
+
+/* =========================
+   コンパクトモードボタン
+========================= */
+
+.compact-toggle {
+
+  display: block;
+
+  width: 100%;
+
+  max-width: 600px;
+
+  margin: 0 auto 12px;
+
+  padding: 10px 14px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #111827;
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+}
+
+
+.compact-toggle:hover {
+
+  opacity: 0.9;
+
+}
+
+
+/* =========================
+   PCコンパクトモード
+========================= */
+
+body.compact-mode {
+
+  background: #ffffff;
+
+}
+
+
+body.compact-mode .container {
+
+  max-width: 330px;
+
+  margin: 0;
+
+  padding: 8px;
+
+}
+
+
+body.compact-mode h1 {
+
+  font-size: 18px;
+
+  margin: 4px 0 9px;
+
+}
+
+
+body.compact-mode .card {
+
+  border-radius: 9px;
+
+  padding: 9px;
+
+  margin-bottom: 8px;
+
+  box-shadow:
+    0 1px 5px rgba(0,0,0,0.08);
+
+}
+
+
+body.compact-mode h2 {
+
+  font-size: 14px;
+
+  margin-bottom: 8px;
+
+}
+
+
+body.compact-mode label {
+
+  font-size: 12px;
+
+  margin: 7px 0 3px;
+
+}
+
+
+body.compact-mode input {
+
+  padding: 7px;
+
+  font-size: 13px;
+
+  border-radius: 6px;
+
+}
+
+
+body.compact-mode .result {
+
+  padding: 5px 0;
+
+  font-size: 12px;
+
+}
+
+
+body.compact-mode .value {
+
+  font-size: 12px;
+
+}
+
+
+body.compact-mode .profit {
+
+  font-size: 17px;
+
+}
+
+
+body.compact-mode .target {
+
+  padding: 7px;
+
+  margin: 5px 0;
+
+}
+
+
+body.compact-mode .target-title {
+
+  font-size: 12px;
+
+  margin-bottom: 3px;
+
+}
+
+
+body.compact-mode .small {
+
+  font-size: 10px;
+
+}
+
+
+body.compact-mode .custom {
+
+  margin-top: 8px;
+
+  padding-top: 8px;
+
+}
+
+
+body.compact-mode .tax-box {
+
+  padding: 7px;
+
+  margin-top: 5px;
+
+  font-size: 12px;
+
+}
+
+
+body.compact-mode footer {
+
+  font-size: 9px;
+
+  padding: 5px;
+
+}
+
+
+body.compact-mode .compact-toggle {
+
+  max-width: 314px;
+
+  margin: 0 8px 7px;
+
+  padding: 7px 10px;
+
+  font-size: 12px;
+
+}
+
+
+/* =========================
+   スマホではボタンを少し調整
+========================= */
+
+@media (max-width: 600px) {
+
+  .compact-toggle {
+
+    max-width: 600px;
+
+  }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     コンパクトモード切替
+========================= -->
+
+<button
+  id="compactToggle"
+  class="compact-toggle"
+  type="button"
+>
+  🖥️ コンパクトモード
+</button>
+
+
 <div class="container">
 
-<h1>📦 物販利益計算</h1>
+
+<h1>
+📦 物販利益計算
+</h1>
 
 
-<!-- ① 販売条件 -->
+<!-- =========================
+     ① 販売条件
+========================= -->
 
 <div class="card">
 
-<h2>① 販売条件を入力</h2>
+<h2>
+① 販売条件を入力
+</h2>
 
-<label for="sale">販売価格（税込）</label>
+
+<label for="sale">
+販売価格（税込）
+</label>
+
 
 <input
   id="sale"
@@ -160,7 +559,11 @@ footer {
   placeholder="例：30000"
 >
 
-<label for="cost">原価</label>
+
+<label for="cost">
+原価
+</label>
+
 
 <input
   id="cost"
@@ -171,7 +574,11 @@ footer {
   placeholder="例：18000"
 >
 
-<label for="shipping">配送料</label>
+
+<label for="shipping">
+配送料
+</label>
+
 
 <input
   id="shipping"
@@ -185,51 +592,127 @@ footer {
 </div>
 
 
-<!-- ② 利益計算 -->
+<!-- =========================
+     ② 利益計算
+========================= -->
 
 <div class="card">
 
-<h2>② 利益計算</h2>
+<h2>
+② 利益計算
+</h2>
+
 
 <div class="result">
-  <span>販売価格</span>
-  <span class="value" id="saleResult">¥0</span>
+
+<span>
+販売価格
+</span>
+
+<span
+  class="value"
+  id="saleResult"
+>
+¥0
+</span>
+
 </div>
+
 
 <div class="result">
-  <span>販売手数料（10%）</span>
-  <span class="value" id="fee">¥0</span>
+
+<span>
+販売手数料（10%）
+</span>
+
+<span
+  class="value"
+  id="fee"
+>
+¥0
+</span>
+
 </div>
+
 
 <div class="result">
-  <span>原価</span>
-  <span class="value" id="costResult">¥0</span>
+
+<span>
+原価
+</span>
+
+<span
+  class="value"
+  id="costResult"
+>
+¥0
+</span>
+
 </div>
+
 
 <div class="result">
-  <span>配送料</span>
-  <span class="value" id="shippingResult">¥0</span>
+
+<span>
+配送料
+</span>
+
+<span
+  class="value"
+  id="shippingResult"
+>
+¥0
+</span>
+
 </div>
+
 
 <div class="result">
-  <span>利益</span>
-  <span class="profit" id="profit">¥0</span>
+
+<span>
+利益
+</span>
+
+<span
+  class="profit"
+  id="profit"
+>
+¥0
+</span>
+
 </div>
+
 
 <div class="result">
-  <span>利益率</span>
-  <span class="profit" id="rate">0.0%</span>
-</div>
+
+<span>
+利益率
+</span>
+
+<span
+  class="profit"
+  id="rate"
+>
+0.0%
+</span>
 
 </div>
 
+</div>
 
-<!-- ③ 目標利益率 -->
+
+<!-- =========================
+     ③ 目標利益率
+========================= -->
 
 <div class="card">
 
-<h2>③ 目標利益率から原価を逆算</h2>
+<h2>
+③ 目標利益率から原価を逆算
+</h2>
 
+
+<!-- 20% -->
 
 <div class="target">
 
@@ -237,18 +720,32 @@ footer {
 利益率 20%
 </div>
 
+
 <div>
+
 最大原価：
-<strong id="cost20">¥0</strong>
+
+<strong id="cost20">
+¥0
+</strong>
+
 </div>
+
 
 <div class="small">
+
 税抜価格：
-<span id="cost20ex">¥0</span>
-</div>
+
+<span id="cost20ex">
+¥0
+</span>
 
 </div>
 
+</div>
+
+
+<!-- 25% -->
 
 <div class="target">
 
@@ -256,18 +753,32 @@ footer {
 利益率 25%
 </div>
 
+
 <div>
+
 最大原価：
-<strong id="cost25">¥0</strong>
+
+<strong id="cost25">
+¥0
+</strong>
+
 </div>
+
 
 <div class="small">
+
 税抜価格：
-<span id="cost25ex">¥0</span>
-</div>
+
+<span id="cost25ex">
+¥0
+</span>
 
 </div>
 
+</div>
+
+
+<!-- 30% -->
 
 <div class="target">
 
@@ -275,26 +786,42 @@ footer {
 利益率 30%
 </div>
 
+
 <div>
+
 最大原価：
-<strong id="cost30">¥0</strong>
+
+<strong id="cost30">
+¥0
+</strong>
+
 </div>
+
 
 <div class="small">
+
 税抜価格：
-<span id="cost30ex">¥0</span>
-</div>
+
+<span id="cost30ex">
+¥0
+</span>
 
 </div>
 
+</div>
 
-<!-- 任意利益率 -->
+
+<!-- 任意 -->
 
 <div class="custom">
 
+
 <label for="customRate">
+
 任意の目標利益率（%）
+
 </label>
+
 
 <input
   id="customRate"
@@ -306,20 +833,33 @@ footer {
   placeholder="例：27"
 >
 
-<div id="customRateError" class="error"></div>
+
+<div
+  id="customRateError"
+  class="error"
+></div>
 
 
 <div class="target">
 
 <div>
+
 最大原価：
-<strong id="customCost">¥0</strong>
+
+<strong id="customCost">
+¥0
+</strong>
+
 </div>
+
 
 <div class="small">
+
 税抜価格：
-<span id="customCostEx">¥0</span>
-</div>
+
+<span id="customCostEx">
+¥0
+</span>
 
 </div>
 
@@ -327,17 +867,26 @@ footer {
 
 </div>
 
+</div>
 
-<!-- ④ 税込・税抜 -->
+
+<!-- =========================
+     ④ 税込・税抜
+========================= -->
 
 <div class="card">
 
-<h2>④ 税込・税抜価格変換</h2>
+<h2>
+④ 税込・税抜価格変換
+</h2>
 
 
 <label for="exPrice">
+
 税抜価格
+
 </label>
+
 
 <input
   id="exPrice"
@@ -352,14 +901,20 @@ footer {
 <div class="tax-box">
 
 税込価格：
-<strong id="incResult">¥0</strong>
+
+<strong id="incResult">
+¥0
+</strong>
 
 </div>
 
 
 <label for="incPrice">
+
 税込価格
+
 </label>
+
 
 <input
   id="incPrice"
@@ -374,12 +929,18 @@ footer {
 <div class="tax-box">
 
 税抜価格：
-<strong id="exResult">¥0</strong>
+
+<strong id="exResult">
+¥0
+</strong>
 
 </div>
 
 
-<div class="small" style="margin-top:10px;">
+<div
+  class="small"
+  style="margin-top:10px;"
+>
 
 ※消費税10%で計算。1円未満は切り上げ。
 
@@ -389,8 +950,11 @@ footer {
 
 
 <footer>
+
 物販利益計算ツール
+
 </footer>
+
 
 </div>
 
@@ -407,23 +971,101 @@ footer {
 const sale =
   document.getElementById("sale");
 
+
 const cost =
   document.getElementById("cost");
+
 
 const shipping =
   document.getElementById("shipping");
 
+
 const customRate =
   document.getElementById("customRate");
+
 
 const customRateError =
   document.getElementById("customRateError");
 
+
 const exPrice =
   document.getElementById("exPrice");
 
+
 const incPrice =
   document.getElementById("incPrice");
+
+
+/* =========================
+   コンパクトモード
+========================= */
+
+const compactToggle =
+  document.getElementById(
+    "compactToggle"
+  );
+
+
+/*
+  前回の表示状態を保存
+*/
+
+const savedCompact =
+  localStorage.getItem(
+    "compactMode"
+  );
+
+
+if (savedCompact === "true") {
+
+  document.body.classList.add(
+    "compact-mode"
+  );
+
+  compactToggle.textContent =
+    "🖥️ 通常モードに戻す";
+
+}
+
+
+/*
+  ボタンを押したとき
+*/
+
+compactToggle.addEventListener(
+  "click",
+  function () {
+
+    const isCompact =
+      document.body.classList.toggle(
+        "compact-mode"
+      );
+
+
+    if (isCompact) {
+
+      compactToggle.textContent =
+        "🖥️ 通常モードに戻す";
+
+      localStorage.setItem(
+        "compactMode",
+        "true"
+      );
+
+    } else {
+
+      compactToggle.textContent =
+        "🖥️ コンパクトモード";
+
+      localStorage.setItem(
+        "compactMode",
+        "false"
+      );
+
+    }
+
+  }
+);
 
 
 /* =========================
@@ -441,16 +1083,22 @@ const TAX_RATE = 0.10;
 
 function numberValue(input) {
 
-  const value = Number(input.value);
+  const value =
+    Number(input.value);
+
 
   if (
     Number.isFinite(value) &&
     value >= 0
   ) {
+
     return value;
+
   }
 
+
   return 0;
+
 }
 
 
@@ -462,8 +1110,9 @@ function yen(value) {
 
   return (
     "¥" +
-    Math.round(value || 0)
-      .toLocaleString("ja-JP")
+    Math.round(
+      value || 0
+    ).toLocaleString("ja-JP")
   );
 
 }
@@ -478,7 +1127,10 @@ function ceilYen(value) {
   return (
     "¥" +
     Math.ceil(
-      Math.max(0, value || 0)
+      Math.max(
+        0,
+        value || 0
+      )
     ).toLocaleString("ja-JP")
   );
 
@@ -486,7 +1138,7 @@ function ceilYen(value) {
 
 
 /* =========================
-   目標利益率の結果表示
+   最大原価結果表示
 ========================= */
 
 function setTargetResult(
@@ -497,14 +1149,16 @@ function setTargetResult(
 
   document.getElementById(
     costId
-  ).textContent = ceilYen(maxCost);
+  ).textContent =
+    ceilYen(maxCost);
 
 
   document.getElementById(
     costExId
   ).textContent =
     ceilYen(
-      maxCost / (1 + TAX_RATE)
+      maxCost /
+      (1 + TAX_RATE)
     );
 
 }
@@ -523,9 +1177,11 @@ function calculateTarget(
   fee
 ) {
 
+
   /*
     目標利益
-    = 販売価格 × 目標利益率
+    =
+    販売価格 × 目標利益率
   */
 
   const targetProfit =
@@ -534,10 +1190,11 @@ function calculateTarget(
 
   /*
     最大原価
-    = 販売価格
-      − 配送料
-      − 販売手数料
-      − 目標利益
+    =
+    販売価格
+    − 配送料
+    − 販売手数料
+    − 目標利益
   */
 
   const maxCost =
@@ -550,28 +1207,38 @@ function calculateTarget(
   setTargetResult(
     costId,
     costExId,
-    Math.max(0, maxCost)
+    Math.max(
+      0,
+      maxCost
+    )
   );
 
 }
 
 
 /* =========================
-   メイン利益計算
+   メイン計算
 ========================= */
 
 function calculate() {
 
-  const s = numberValue(sale);
 
-  const c = numberValue(cost);
+  const s =
+    numberValue(sale);
 
-  const sh = numberValue(shipping);
+
+  const c =
+    numberValue(cost);
+
+
+  const sh =
+    numberValue(shipping);
 
 
   /*
     販売手数料
-    = 販売価格 × 10%
+    =
+    販売価格 × 10%
   */
 
   const fee =
@@ -580,10 +1247,11 @@ function calculate() {
 
   /*
     利益
-    = 販売価格
-      − 原価
-      − 配送料
-      − 手数料
+    =
+    販売価格
+    − 原価
+    − 配送料
+    − 手数料
   */
 
   const profit =
@@ -595,7 +1263,8 @@ function calculate() {
 
   /*
     利益率
-    = 利益 ÷ 販売価格 × 100
+    =
+    利益 ÷ 販売価格 × 100
   */
 
   const rate =
@@ -604,31 +1273,38 @@ function calculate() {
       : 0;
 
 
-  /* 結果表示 */
+  /* =========================
+     結果表示
+  ========================= */
 
   document.getElementById(
     "saleResult"
-  ).textContent = yen(s);
+  ).textContent =
+    yen(s);
 
 
   document.getElementById(
     "fee"
-  ).textContent = yen(fee);
+  ).textContent =
+    yen(fee);
 
 
   document.getElementById(
     "costResult"
-  ).textContent = yen(c);
+  ).textContent =
+    yen(c);
 
 
   document.getElementById(
     "shippingResult"
-  ).textContent = yen(sh);
+  ).textContent =
+    yen(sh);
 
 
   document.getElementById(
     "profit"
-  ).textContent = yen(profit);
+  ).textContent =
+    yen(profit);
 
 
   document.getElementById(
@@ -637,19 +1313,27 @@ function calculate() {
     rate.toFixed(1) + "%";
 
 
-  /* 利益の色 */
+  /* =========================
+     利益カラー
+  ========================= */
 
   const profitElement =
-    document.getElementById("profit");
+    document.getElementById(
+      "profit"
+    );
+
 
   const rateElement =
-    document.getElementById("rate");
+    document.getElementById(
+      "rate"
+    );
 
 
   profitElement.classList.remove(
     "positive",
     "negative"
   );
+
 
   rateElement.classList.remove(
     "positive",
@@ -680,7 +1364,9 @@ function calculate() {
   }
 
 
-  /* 固定目標利益率 */
+  /* =========================
+     固定利益率
+  ========================= */
 
   calculateTarget(
     0.20,
@@ -712,19 +1398,25 @@ function calculate() {
   );
 
 
-  /* 任意目標利益率 */
+  /* =========================
+     任意利益率
+  ========================= */
 
   const customRaw =
     customRate.value.trim();
 
 
   /*
-    未入力なら0表示
+    未入力
   */
 
-  if (customRaw === "") {
+  if (
+    customRaw === ""
+  ) {
 
-    customRateError.textContent = "";
+    customRateError.textContent =
+      "";
+
 
     setTargetResult(
       "customCost",
@@ -732,7 +1424,9 @@ function calculate() {
       0
     );
 
+
     return;
+
   }
 
 
@@ -741,7 +1435,7 @@ function calculate() {
 
 
   /*
-    0〜100%以外はエラー
+    0〜100%以外
   */
 
   if (
@@ -760,18 +1454,20 @@ function calculate() {
       0
     );
 
+
     return;
 
   }
 
 
-  customRateError.textContent = "";
+  customRateError.textContent =
+    "";
 
 
   /*
-    例えば27と入力
+    27
     ↓
-    0.27に変換
+    0.27
   */
 
   calculateTarget(
@@ -787,13 +1483,15 @@ function calculate() {
 
 
 /* =========================
-   税込・税抜変換
+   税込・税抜計算
 ========================= */
 
 function calculateTax() {
 
+
   const ex =
     numberValue(exPrice);
+
 
   const inc =
     numberValue(incPrice);
@@ -807,7 +1505,8 @@ function calculateTax() {
     "incResult"
   ).textContent =
     ceilYen(
-      ex * (1 + TAX_RATE)
+      ex *
+      (1 + TAX_RATE)
     );
 
 
@@ -819,7 +1518,8 @@ function calculateTax() {
     "exResult"
   ).textContent =
     ceilYen(
-      inc / (1 + TAX_RATE)
+      inc /
+      (1 + TAX_RATE)
     );
 
 }
@@ -834,27 +1534,35 @@ function calculateTax() {
   cost,
   shipping,
   customRate
-].forEach(input => {
+].forEach(
 
-  input.addEventListener(
-    "input",
-    calculate
-  );
+  function(input) {
 
-});
+    input.addEventListener(
+      "input",
+      calculate
+    );
+
+  }
+
+);
 
 
 [
   exPrice,
   incPrice
-].forEach(input => {
+].forEach(
 
-  input.addEventListener(
-    "input",
-    calculateTax
-  );
+  function(input) {
 
-});
+    input.addEventListener(
+      "input",
+      calculateTax
+    );
+
+  }
+
+);
 
 
 /* =========================
@@ -867,5 +1575,7 @@ calculateTax();
 
 </script>
 
+
 </body>
+
 </html>
