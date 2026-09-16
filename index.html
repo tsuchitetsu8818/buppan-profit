@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<title>物販利益計算</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+h1 {
+  text-align: center;
+  margin: 8px 0 20px;
+  font-size: 26px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+h2 {
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  font-size: 17px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #111827;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result:last-child {
+  border-bottom: none;
+}
+
+.value {
+  font-weight: 700;
+}
+
+.profit {
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.positive {
+  color: #059669;
+}
+
+.negative {
+  color: #dc2626;
+}
+
+.target {
+  padding: 13px;
+  margin: 9px 0;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.target-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.small {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.custom {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.tax-box {
+  background: #f9fafb;
+  padding: 13px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  color: #6b7280;
+  font-size: 12px;
+  padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 物販利益計算</h1>
+
+<div class="card">
+<h2>① 販売条件を入力</h2>
+
+<label>販売価格（税込）</label>
+<input id="sale" type="number" inputmode="numeric" placeholder="例：30000">
+
+<label>原価</label>
+<input id="cost" type="number" inputmode="numeric" placeholder="例：18000">
+
+<label>配送料</label>
+<input id="shipping" type="number" inputmode="numeric" placeholder="例：750">
+
+</div>
+
+<div class="card">
+<h2>② 利益計算</h2>
+
+<div class="result">
+<span>販売価格</span>
+<span class="value" id="saleResult">¥0</span>
+</div>
+
+<div class="result">
+<span>販売手数料（10%）</span>
+<span class="value" id="fee">¥0</span>
+</div>
+
+<div class="result">
+<span>原価</span>
+<span class="value" id="costResult">¥0</span>
+</div>
+
+<div class="result">
+<span>配送料</span>
+<span class="value" id="shippingResult">¥0</span>
+</div>
+
+<div class="result">
+<span>利益</span>
+<span class="profit" id="profit">¥0</span>
+</div>
+
+<div class="result">
+<span>利益率</span>
+<span class="profit" id="rate">0.0%</span>
+</div>
+
+</div>
+
+<div class="card">
+<h2>③ 目標利益率から原価を逆算</h2>
+
+<div class="target">
+<div class="target-title">利益率 20%</div>
+<div>最大原価：<strong id="cost20">¥0</strong></div>
+<div class="small">税抜価格：<span id="cost20ex">¥0</span></div>
+</div>
+
+<div class="target">
+<div class="target-title">利益率 25%</div>
+<div>最大原価：<strong id="cost25">¥0</strong></div>
+<div class="small">税抜価格：<span id="cost25ex">¥0</span></div>
+</div>
+
+<div class="target">
+<div class="target-title">利益率 30%</div>
+<div>最大原価：<strong id="cost30">¥0</strong></div>
+<div class="small">税抜価格：<span id="cost30ex">¥0</span></div>
+</div>
+
+<div class="custom">
+<label>任意の目標利益率（%）</label>
+<input id="customRate" type="number" inputmode="decimal" placeholder="例：27">
+
+<div class="target">
+<div>最大原価：<strong id="customCost">¥0</strong></div>
+<div class="small">税抜価格：<span id="customCostEx">¥0</span></div>
+</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>④ 税込・税抜価格変換</h2>
+
+<label>税抜価格</label>
+<input id="exPrice" type="number" inputmode="numeric" placeholder="例：20000">
+
+<div class="tax-box">
+税込価格：<strong id="incResult">¥0</strong>
+</div>
+
+<label>税込価格</label>
+<input id="incPrice" type="number" inputmode="numeric" placeholder="例：22000">
+
+<div class="tax-box">
+税抜価格：<strong id="exResult">¥0</strong>
+</div>
+
+<div class="small" style="margin-top:10px;">
+※消費税10%で計算。1円未満は切り上げ。
+</div>
+
+</div>
+
+<footer>
+物販利益計算ツール
+</footer>
+
+</div>
+
+<script>
+
+const sale = document.getElementById("sale");
+const cost = document.getElementById("cost");
+const shipping = document.getElementById("shipping");
+const customRate = document.getElementById("customRate");
+
+const feeRate = 0.10;
+
+function yen(value) {
+  return "¥" + Math.round(value || 0).toLocaleString("ja-JP");
+}
+
+function ceilYen(value) {
+  return "¥" + Math.ceil(value || 0).toLocaleString("ja-JP");
+}
+
+function calculate() {
+
+  const s = Number(sale.value) || 0;
+  const c = Number(cost.value) || 0;
+  const sh = Number(shipping.value) || 0;
+
+  const fee = s * feeRate;
+  const profit = s - c - sh - fee;
+  const rate = s > 0 ? (profit / s) * 100 : 0;
+
+  document.getElementById("saleResult").textContent = yen(s);
+  document.getElementById("fee").textContent = yen(fee);
+  document.getElementById("costResult").textContent = yen(c);
+  document.getElementById("shippingResult").textContent = yen(sh);
+  document.getElementById("profit").textContent = yen(profit);
+  document.getElementById("rate").textContent = rate.toFixed(1) + "%";
+
+  const profitElement = document.getElementById("profit");
+  const rateElement = document.getElementById("rate");
+
+  profitElement.classList.remove("positive", "negative");
+  rateElement.classList.remove("positive", "negative");
+
+  if (profit >= 0) {
+    profitElement.classList.add("positive");
+    rateElement.classList.add("positive");
+  } else {
+    profitElement.classList.add("negative");
+    rateElement.classList.add("negative");
+  }
+
+  calculateTarget(0.20, "20", s, sh, fee);
+  calculateTarget(0.25, "25", s, sh, fee);
+  calculateTarget(0.30, "30", s, sh, fee);
+
+  const custom = Number(customRate.value) || 0;
+
+  if (custom > 0) {
+    calculateTarget(
+      custom / 100,
+      "custom",
+      s,
+      sh,
+      fee
+    );
+  } else {
+    document.getElementById("customCost").textContent = "¥0";
+    document.getElementById("customCostEx").textContent = "¥0";
+  }
+}
+
+function calculateTarget(margin, id, s, sh, fee) {
+
+  // 利益 = 販売価格 - 原価 - 送料 - 手数料
+  // 目標利益 = 販売価格 × 目標利益率
+  // 原価 = 販売価格 - 送料 - 手数料 - 目標利益
+
+  const maxCost = s - sh - fee - (s * margin);
+
+  const safeCost = Math.max(0, maxCost);
+
+  document.getElementById("cost" + id).textContent =
+    ceilYen(safeCost);
+
+  document.getElementById("cost" + id + "ex").textContent =
+    ceilYen(safeCost / 1.1);
+}
+
+// 税込・税抜変換
+const exPrice = document.getElementById("exPrice");
+const incPrice = document.getElementById("incPrice");
+
+function calculateTax() {
+
+  const ex = Number(exPrice.value) || 0;
+  const inc = Number(incPrice.value) || 0;
+
+  document.getElementById("incResult").textContent =
+    ceilYen(ex * 1.1);
+
+  document.getElementById("exResult").textContent =
+    ceilYen(inc / 1.1);
+}
+
+[sale, cost, shipping, customRate].forEach(input => {
+  input.addEventListener("input", calculate);
+});
+
+[exPrice, incPrice].forEach(input => {
+  input.addEventListener("input", calculateTax);
+});
+
+calculate();
+calculateTax();
+
+</script>
+
+</body>
+</html>
